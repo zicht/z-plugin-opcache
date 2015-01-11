@@ -13,8 +13,8 @@ tasks:
         do:
             - echo '<?php apc_clear_cache("user"); apc_clear_cache(); ' | ssh $(envs[target_env].ssh) "cat > $(_file)"
             - wget -qO - $(envs[target_env].url)/__apc_clear_cache.php > /dev/null
-            - @(ssh(target_env)) rm $(_file)
-            - ?(VERBOSE) echo "Cache cleared at $(target_env) $(envs[target_env].url)"
+            - @(sh ssh(target_env)) rm $(_file)
+            - @(if VERBOSE) echo "Cache cleared at $(target_env) $(envs[target_env].url)"
 
     # hook into the deploy task to flush the apc cache after deploy.
     deploy:
