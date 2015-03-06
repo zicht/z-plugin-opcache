@@ -12,7 +12,7 @@ tasks:
             target_env:    ?
         do:
             - echo '<?php apc_clear_cache("user"); apc_clear_cache(); ' | ssh $(envs[target_env].ssh) "cat > $(_file)"
-            - wget -qO - $(envs[target_env].url)/__apc_clear_cache.php > /dev/null
+            - wget -qO - $(path(envs[target_env].url, "__apc_clear_cache.php")) > /dev/null
             - @(sh ssh(target_env)) rm $(_file)
             - @(if VERBOSE) echo "Cache cleared at $(target_env) $(envs[target_env].url)"
 
