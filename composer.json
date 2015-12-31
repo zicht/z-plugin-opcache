@@ -1,6 +1,6 @@
 {
-    "name": "zicht/z-plugin-apc",
-    "description": "APC plugin for Z",
+    "name": "zicht/z-plugin-opcache",
+    "description": "Opcache plugin for Z",
     "license": "MIT",
     "authors": [
         {
