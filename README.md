@@ -22,4 +22,4 @@ curl.
 The `env:opcache` task is also hooked into `deploy.post`
 
 # Maintainer(s)
-* Oskar van Velden <oskar@zicht.nl>
+* Philip bergman <philip@zicht.nl>
