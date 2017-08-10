@@ -12,11 +12,11 @@ tasks:
             _file:  cat(envs[target_env].root, envs[target_env].web, "/__opcache_clear.php")
         do:
             - echo '<?php opcache_reset(); ' | ssh $(envs[target_env].ssh) "cat > $(_file)"
-            - wget -qO - $(path(envs[target_env].url, "__opcache_clear.php")) > /dev/null
+            - curl "$(path(envs[target_env].url, "__opcache_clear.php"))" $(envs[target_env].host ? sprintf("-H 'Host:%s%s'", " ", envs[target_env].host)) > /dev/null
             - @(sh ssh(target_env)) rm $(_file)
             - @(if VERBOSE) echo "Cache cleared at $(target_env) $(envs[target_env].url)"
 
-    # hook into the deploy task to flush the apc cache after deploy.
+    # hook into the deploy task to flush the apcache cache after deploy.
     deploy:
         post:
             - @env.opcache_clear
