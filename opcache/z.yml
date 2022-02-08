@@ -13,10 +13,10 @@ tasks:
         do:
             - echo '<?php opcache_reset(); ' | ssh $(envs[target_env].ssh) "cat > $(_file)"
             - curl --insecure --location "$(path(envs[target_env].url, "__opcache_clear.php"))" $(envs[target_env].host ? sprintf("-H 'Host:%s%s'", " ", envs[target_env].host)) > /dev/null
-            - @(sh ssh(target_env)) rm $(_file)
-            - @(if VERBOSE) echo "Cache cleared at $(target_env) $(envs[target_env].url)"
+            - '@(sh ssh(target_env)) rm $(_file)'
+            - '@(if VERBOSE) echo "Cache cleared at $(target_env) $(envs[target_env].url)"'
 
     # hook into the deploy task to flush the apcache cache after deploy.
     deploy:
         post:
-            - @env.opcache_clear
+            - '@env.opcache_clear'
